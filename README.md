@@ -18,11 +18,21 @@
 
 # Dialogflow CX Codelabs
 
-**By Lee Boonstra, Developer Advocate @ Google Cloud.**
+**By Lee Boonstra, Conversational AI Developer Advocate @ Google Cloud.**
 
 This repository contains advanced Dialogflow CX labs.
 Eventually these labs will be moved over to the [Google Codelab platform](https://codelabs.developers.google.com/).
 
 ## Labs
 
-* [Lab 1: Build a complex retail virtual agent with Dialogflow CX](https://github.com/savelee/dialogflow-cx-labs/blob/master/labs/lab1.md)
+* [Lab 1: Build a complex retail virtual agent with Dialogflow CX](https://github.com/savelee/dialogflow-cx-labs/blob/master/labs/lab1.md) - Learn Flows, Pages, State Hanlders (Intent Routes, Conditional Routes), Static Fulfillments & Conditional Responses, Simulator and Dialogflow CX Test Cases.
+
+## TODO
+
+* Lab 2: Build a webhook for your virtual agent
+* Lab 3: Build a custom integration (Dialogflow CX channel)
+* Lab 4: Build a virtual agent for voice (Phone Gateway)
+
+
+## Dialogflow Prototyper
+These sets of labs make use of my [Dialogflow CX Prototyper](https://ccai-360.nw.r.appspot.com/#/) tool, to draw out diagrams.
