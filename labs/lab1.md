@@ -16,8 +16,6 @@
 
 # Build a retail virtual agent with Dialogflow CX
 
-[Codelab Feedback](https://github.com/googlecodelabs/dialogflow-cx-retail-agent/issues)
-
 ## Before you begin
 
 In this codelab, you'll learn how to build a retail chatbot with <a href="https://cloud.google.com/dialogflow"><strong>Dialogflow CX</strong></a>, a Conversational AI Platform (CAIP) for building conversational UIs.
@@ -27,7 +25,7 @@ This codelab will guide you how to build a website chatbot for a retail. The fic
 G-Records is a rock record label, based in California. The label has 4 rock bands signed; <strong>Alice Googler</strong>, <strong>G's N' Roses</strong>, <strong>The Goo Fighters</strong> and <strong>The Google Dolls</strong>.
 G-Records is selling band merchandise to all rock fans. You can use the chatbot, to order shirts or music or you can ask about your order.
 
-![Final Result](img/result1.png)
+![Final Result](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/result1.png?raw=true)
 
 ### What you'll learn
 
@@ -45,7 +43,7 @@ You will learn the benefits of Dialogflow CX compared to Dialogflow ES by doing!
 +   Learn how to use the simulator
 +   Learn how to create test cases & test coverage
 
-![Final Result](img/final-result.png)
+![Final Result](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/final-result.png?raw=true)
 
 ### What you'll need
 
@@ -72,7 +70,7 @@ When you create a new project, you will need to enter a **Project Name**. And yo
 
 A billing account is used to define who pays for a given set of resources, and it can be linked to one or more projects. Project usage is charged to the linked billing account. In most cases, you configure billing when you create a project. For more information, see the [Billing documentation](https://cloud.google.com/billing/docs). Make sure that billing is enabled for your Cloud project.
 
-![Create a new project](img/create-project.png)
+![Create a new project](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/create-project.png?raw=true)
 
 ### Enable the Dialogflow API
 
@@ -90,7 +88,7 @@ In order to make use of Dialogflow, you will have to enable the Dialogflow API f
 
 6. Click **Done**
 
-![Setup Credentials](img/credentials.png)
+![Setup Credentials](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/credentials.png?raw=true)
 
 ### Create a new Dialogflow CX agent
 
@@ -113,7 +111,7 @@ Complete the form for basic agent settings:
 
 Click **Create**.
 
-![Create Agent](img/create-agent.png)
+![Create Agent](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/create-agent.png?raw=true)
 
 Alright, we are all set. We finally can get started with modeling our virtual agent.
 
@@ -124,7 +122,7 @@ Duration: 15:00
 Complex dialogs often involve multiple conversation topics. In the case of the chatbot we are building for G-Records, for selling band merchandise,
 we would have dialogs about the product catalog, payment, order status, and customer care questions. We could split these conversation topics into flows.
 
-![Retail Flow](img/flows-start.png)
+![Retail Flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/flows-start.png?raw=true)
 
 [Flows](https://cloud.google.com/dialogflow/cx/docs/concept/flow) allow teams to work on individual conversation paths. A good practice would be to simplify the flow, so it fits easily. on a screen
 and it's more modular.
@@ -141,7 +139,7 @@ Let's go and create some flows.
 1. In [Dialogflow CX](https://dialogflow.cloud.google.com/cx/), click on the **+** icon > **Create flow**.
 2. Specify the name: `Catalog` and hit enter.
 
-![Create a flow](img/create-flow.png)
+![Create a flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/create-flow.png?raw=true)
 
 Your first flow *Catalog* has been created. Now create the other flows:
 
@@ -149,11 +147,11 @@ Your first flow *Catalog* has been created. Now create the other flows:
 * `My Order`
 * `Customer Care`
 
-![Flows](img/flows3.png)
+![Flows](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/flows3.png?raw=true)
 
 Later in this lab we will set page state handlers, this will make sure that eventually the visualization will look like this:
 
-![Flows](img/flows-visualization.png)
+![Flows](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/flows-visualization.png?raw=true)
 
 ### Simulator
 
@@ -164,7 +162,7 @@ You can test the conversation from the beginning of the conversation, or from a 
 2. In the talk to agent field write: `Hello`
 The virtual agent will respond with a default welcome text: *Greetings! How can I assist?*
 
-![Simulator](img/simulator.png)
+![Simulator](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/simulator.png?raw=true)
 
 Let's modify this default welcome text.
 
@@ -216,7 +214,7 @@ To read more about Custom payloads have a look into the [documentation](https://
   }
 ```
 
-![Default Welcome Intent](img/welcome-intent2.png)
+![Default Welcome Intent](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/welcome-intent2.png?raw=true)
 
 5. Go ahead and test the welcome intent in the simulator.
 
@@ -228,18 +226,18 @@ You are probably wondering why you can't see any rich content. This is because r
 
 8. In the popup click **Enable**.
 
-![Integration Enable](img/integration-enable.png)
+![Integration Enable](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/integration-enable.png?raw=true)
 
 Another popup will be shown, this time with integration JavaScript code that you can paste in your website to integrate the Dialogflow Messenger component on your website.
 Since we don't have a website yet, we will test the virtual agent directly in the tool.
 
-![Dialogflow Messenger Try Now](img/try-now.png)
+![Dialogflow Messenger Try Now](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/try-now.png?raw=true)
 
 9. Click on the **Try Now** link.
 
 10. Click on the bottom right chatbot icon, to open the chat window. Write `Hello` to kick-off the conversation.
 
-![Dialogflow Messenger Try Now](img/df-messenger2.png)
+![Dialogflow Messenger Try Now](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/df-messenger2.png?raw=true)
 
 For now, when you click on the suggestion chips, the virtual agent won't understand what you mean. This is because our virtual agent is not switching between states yet. We can do this in Dialogflow CX with **Pages**. Let's continue the lab, we will first create some **Entities** and **Intents**.
 
@@ -254,7 +252,7 @@ You can also create your own custom entities for matching custom data.
 Let's start by preparing all the custom entities before we can design the pages in a flow.
 We will create the following entities:
 
-![Dialogflow Entities](img/entities-uml2.png)
+![Dialogflow Entities](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/entities-uml2.png?raw=true)
 
 ### Creating Entities
 
@@ -336,7 +334,7 @@ And an entity for *order numbers*, that are typically 4 alphanumeric and 3 numbe
 15. Click **Save**
 
 
-![Entities](img/entities.png)
+![Entities](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/entities.png?raw=true)
 
 Once, the custom entities are prepared, we can prepare the intents. Let's continue the lab.
 
@@ -369,7 +367,7 @@ Use the following details:
 all characters are lowercase, use dots (.) instead of spaces, and use the following prefixes:
 **redirect** for intents that use NLU to fetch a page, **confirm**/**decline** for intents that confirm or decline choices ('yes' or 'no' training phrases)
 
-![New Intent](img/new-intent.png)
+![New Intent](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/new-intent.png?raw=true)
 
 Scroll down and create the following **training phrases**:
 
@@ -387,7 +385,7 @@ Scroll down and create the following **training phrases**:
 * `What music can I order`
 * `Can I get an overview of all the artists`
 
-![Training phrases](img/trainingphrases.png)
+![Training phrases](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/trainingphrases.png?raw=true)
 
 4. Click **Save**.
 
@@ -462,7 +460,7 @@ For our retail bot, we will create some **intent routes** and provide some *stat
 
 Here's a flow chart of the default start flow:
 
-![Catalog Connected Pages](img/flows-start.png)
+![Catalog Connected Pages](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/flows-start.png?raw=true)
 
 Let's click this together:
 
@@ -497,13 +495,13 @@ Let's click this together:
 | Start | `redirect.my.order.status` | Flow: My Order |
 | Start | `redirect.end` | Page: End Session |
 
-![Default Start Page Routes](img/routes-default-start2.png)
+![Default Start Page Routes](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/routes-default-start2.png?raw=true)
 
 As you might have noticed, the Default Start Flow will kinda work like how an option menu works in a call center.
 However, in this virtual agent it's trained with Natural Language, the training phrases in intents. Therefore the conversation
 feels more natural and human-like.
 
-![Default Start Page Routes](img/flows-visualization.png)
+![Default Start Page Routes](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/flows-visualization.png?raw=true)
 
 #### Creating the pages in the Catalog Flow
 
@@ -567,7 +565,7 @@ For the Tour Movie the dialogue will look like this:
 
 Here's a flow chart of all the pages within the Catalog flow:
 
-![Catalog Connected Pages](img/catalog-pages.png)
+![Catalog Connected Pages](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/catalog-pages.png?raw=true)
 
 Notice the complexity of this flow:
 * I could skip the *Which artists question* and immediately ask *"Which merchandise items are available"*.
@@ -756,7 +754,7 @@ Let's create a conditional route, which will transition to the next page, once t
 
 6. Hit **Save**.
 
-![Parameters](img/parameters.png)
+![Parameters](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/parameters.png?raw=true)
 
 #### Creating the routes on the Product Overview page
 
@@ -965,7 +963,7 @@ In our case, we mentioned the artist's name in the turn before.
 When you have set the above configuration, you will see a visualization that's almost similar to the picture below. Note that intent routes
 are blue in the diagram, and condition routes are orange.
 
-![The start of the Catalog flow](img/catalog-flow1.png)
+![The start of the Catalog flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/catalog-flow1.png?raw=true)
 
 By now, you have learned how to create **Flows**, **Entities**, **Intents**, and **Pages** with **State Handlers** like: **Intent Routes** and **Conditional Routes** based on **Parameters**.
 Later in this lab, we will use conditional branching in the fulfillment, to provide different dialogues based on the input.
@@ -1660,7 +1658,7 @@ else
 endif
 ```
 
-![Conditional Responses](img/conditional-responses.png)
+![Conditional Responses](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/conditional-responses.png?raw=true)
 
 Well done, by now you completed the **Catalog** flow. Your flow should look similar to this diagram:
 
@@ -1954,7 +1952,7 @@ Before creating some test cases, let's first finalize the rest of our virtual ag
 | Customer Care Start | `redirect.home` | Flow: Default Start Flow
 | Customer Care Start | `redirect.end` | End Session
 
-![Customer Care Flow](img/customarecare-flow.png)
+![Customer Care Flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/customarecare-flow.png?raw=true)
 
 2. Create the following entry fulfillments for the **Shipping** Page:
 
@@ -1985,7 +1983,7 @@ When you first open the simulator, you need to select an agent environment and a
 
 2. Type: `Hi`
 
-![Customer Care Flow](img/simulator3.png)
+![Customer Care Flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/simulator3.png?raw=true)
 
 3. Ask: `Which artists are signed with your label?`
 
@@ -1999,7 +1997,7 @@ When you first open the simulator, you need to select an agent environment and a
 
 8. Now click on the save test case button. Which you can find in the top of the simulator (next to the redo arrow, and reset trash bin icon)
 
-![Customer Care Flow](img/simulator-save.png)
+![Customer Care Flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/simulator-save.png?raw=true)
 
 9.  Give it the following details:
 * Test case name: `Buy Google Dolls t-shirt size M`
@@ -2083,7 +2081,7 @@ Dialogflow CX will run all the selected test cases against the recording that wa
 if the results are the same as how you saved it, then the tests are passed. - Did something change in the flows
 like Pages that are not correctly configured, or intents that directed you to the wrong pages, then the tests will fail.
 
-![Test Cases](img/testcases.png)
+![Test Cases](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/testcases.png?raw=true)
 
 4. In the simulator ask the following question: `How long will shipping take?`
 
@@ -2157,13 +2155,13 @@ A virtual agent with high test coverage, measured as a percentage, has had more 
 
 This will show you the test coverage for all the page transitions.
 
-![Transitions Coverage](img/coverage-transitions.png)
+![Transitions Coverage](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/coverage-transitions.png?raw=true)
 
 3. Click on the tab **Intents**.
 
 This will show you the test coverage for all the intents.
 
-![Intents Coverage](img/coverage-intents.png)
+![Intents Coverage](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/coverage-intents.png?raw=true)
 
 Congratulations, by now you have built and tested a complete real world example of a retailer bot!
 Let's go to the next lab page to read the conclusion and find some handy references!
@@ -2191,7 +2189,7 @@ This use case shows how powerful Dialogflow CX really is! Of course you could bu
 and keeping context and parameters are limited, so you would likely end up by manually coding back-end fulfillments, which require developers.
 In Dialogflow CX, once you get the hang of it, it's a matter of clicks, the conversational architect can configure flows with complexity.
 
-![Final Result](img/final-result.png)
+![Final Result](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/final-result.png?raw=true)
 
 ### References
 
