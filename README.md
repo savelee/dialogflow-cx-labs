@@ -25,7 +25,7 @@ Eventually these labs will be moved over to the [Google Codelab platform](https:
 
 ## Labs
 
-* [Lab 1: Build a complex retail virtual agent with Dialogflow CX](https://github.com/savelee/dialogflow-cx-labs/blob/master/labs/lab1.md) - Learn Flows, Pages, State Handlers (Intent Routes, Conditional Routes), Static Fulfillments & Conditional Responses, Simulator and Dialogflow CX Test Cases.
+* [Lab 1: Build a complex retail virtual agent with Dialogflow CX](https://github.com/savelee/dialogflow-cx-labs/blob/master/labs/lab1.md) - Learn Flows, Pages, State Handlers (Intent Routes, Conditional Routes), Static Fulfillments & Conditional Responses, Simulator and Dialogflow CX Test Cases. 
 
 ## TODO
 

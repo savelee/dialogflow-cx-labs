@@ -16,6 +16,8 @@
 
 # Build a retail virtual agent with Dialogflow CX
 
+[Download & Import Finalized CX Agent](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1.blob)
+
 ## Before you begin
 
 In this codelab, you'll learn how to build a retail chatbot with <a href="https://cloud.google.com/dialogflow"><strong>Dialogflow CX</strong></a>, a Conversational AI Platform (CAIP) for building conversational UIs.
