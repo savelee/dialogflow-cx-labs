@@ -348,10 +348,19 @@ And an entity for *order numbers*, that are typically 4 alphanumeric and 3 numbe
 
 Your entity configuration should look similar to the following:
 
+@Artist:
 ![@Artist Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/artist-entity.png?raw=true)
+
+@Merch:
 ![@Merch Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/merch-entity.png?raw=true)
+
+@Album:
 ![@Album Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/album-entity.png?raw=true)
+
+@ShirtSize:
 ![@ShirtSize Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/shirtsize-entity.png?raw=true)
+
+@OrderNumber:
 ![@OrderNumber Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/ordernumber-entity.png?raw=true)
 
 
