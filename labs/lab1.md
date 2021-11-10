@@ -21,11 +21,13 @@
 ## Before you begin
 
 In this codelab, you'll learn how to build a retail chatbot with <a href="https://cloud.google.com/dialogflow"><strong>Dialogflow CX</strong></a>, a Conversational AI Platform (CAIP) for building conversational UIs.
-Virtual agents, like: chatbots, voice bots, phone gateways. You can all build it with the same tool, and you can even support multiple channels in over 50 different languages.
+Dialogflow CX can implement virtual agents, like: chatbots, voice bots, phone gateways and can support multiple channels in over 50 different languages.
 
 This codelab will guide you how to build a website chatbot for a retail. The fictional business we are building the chatbot for is called: <strong>G-Records</strong>.
 G-Records is a rock record label, based in California. The label has 4 rock bands signed; <strong>Alice Googler</strong>, <strong>G's N' Roses</strong>, <strong>The Goo Fighters</strong> and <strong>The Google Dolls</strong>.
-G-Records is selling band merchandise to all rock fans. You can use the chatbot, to order shirts or music or you can ask about your order.
+G-Records is selling band merchandise to all rock fans. 
+
+At the end of this codelab, you can use the chatbot, to order shirts or music or you can ask about your order.
 
 ![Final Result](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/result1.png?raw=true)
 
@@ -33,7 +35,7 @@ G-Records is selling band merchandise to all rock fans. You can use the chatbot,
 
 You will learn the benefits of Dialogflow CX compared to Dialogflow ES by doing! It includes the following concepts:
 
-+   How to create a Dialog Flow CX virtual agent within Google Cloud
++   How to create a Dialogflow CX virtual agent within Google Cloud
 +   Learn how to create flows
 +   Learn how to create entities
 +   Learn how to create intents
@@ -45,7 +47,14 @@ You will learn the benefits of Dialogflow CX compared to Dialogflow ES by doing!
 +   Learn how to use the simulator
 +   Learn how to create test cases & test coverage
 
+The final Dialogflow CX agent design will look like this:
+
 ![Final Result](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/final-result.png?raw=true)
+
+> aside positive
+**Note:** We will approach this lab as building a real world virtual agent! We will show you a conversation design (prototype/flow chart) of the dialogue tree. Typically conversational designers create these types of prototypes. It's based on data (conversation analytics, the most common questions that have been asked). We will also give you a UML diagram that shows the relation of the entities (such as Artists or Merchandise product types). Typically you would get this information from a database, as that will also be the place where you store the user input. You will start this lab by first creating the reusable parts. (Flows, Entities and Intents). Afterwards, you will configure the flows by creating Pages, Transitions,
+and Fulfillments. Enjoy!
+
 
 ### What you'll need
 
@@ -336,9 +345,18 @@ And an entity for *order numbers*, that are typically 4 alphanumeric and 3 numbe
 15. Click **Save**
 
 
-![Entities](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/entities.png?raw=true)
+
+Your entity configuration should look similar to the following:
+
+![@Artist Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/artist-entity.png?raw=true)
+![@Merch Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/merch-entity.png?raw=true)
+![@Album Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/album-entity.png?raw=true)
+![@ShirtSize Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/shirtsize-entity.png?raw=true)
+![@OrderNumber Entity Type](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/ordernumber-entity.png?raw=true)
+
 
 Once, the custom entities are prepared, we can prepare the intents. Let's continue the lab.
+
 
 ## Intents
 
@@ -395,8 +413,12 @@ Scroll down and create the following **training phrases**:
 **Note:** For what is worth, it is also possible to create intents directly from a page, in the **Routes** section.
 
 5. Now let's continue and create all the other intents. Use your own imagination to come up with more training phrases.
-A best practice would be to have at least 10 training phrases per intent. For the purpose of this lab, having less
-should be fine too.
+A best practice would be to have at least 10 training phrases per intent to cover the different ways a user might trigger thant intent. For the purpose of this lab, having less should be fine too.
+
+A couple of things to look for:
+* Note that as you enter your training phrase, Dialogflow CX will automatically annotate your entities. If it doesn't do so, you may need to update your entity (by adding a synonym) or by manually annotating the training phrase yourself.
+* Shorter training phrases: Dialogflow's NLU system can also work with shorter training phrases and we have provided a couple of examples here.
+* Over-training: Too many training phrases for an intent may cause over-training and a less desirable result. It is best practice to use iterative and incremental testing and add in training phrases in the case that there isn't an intent matched.
 
 | **Display name** | **Training phrases** |
 |-|-|
@@ -422,35 +444,36 @@ should be fine too.
 | `redirect.end` | `"No that's it, goodbye", "Bye", "Cheers", "End", "That's it", "No more questions", "Exit", "Have a good day", "End Call", "Close"` |
 
 
-Alright, now that everything is prepared. Let's try to click this together by creating Pages and State Handlers.
+Now that our reusable elements (flows, entities, and intents) are prepared, we can put this together by creating Pages and State Handlers.
 
 ## Pages & State Handlers
 
 Duration: 30:00
 
-A Dialogflow CX conversation (a session) can be described and visualized as a state
-machine. Think of a state machine as a vending machine. It has the states: Off, Waiting
-for Coins, Select Candy, Give Candy. [**Pages**](https://cloud.google.com/dialogflow/cx/docs/concept/page) are the states for a Dialogflow CX session!
-For each flow, you define many pages, where your combined pages can handle a
-complete conversation on the topics the flow is designed for. At any given moment,
+A Dialogflow CX conversation (a session) can be described and visualized as a [finite state
+machine](https://en.wikipedia.org/wiki/Finite-state_machine). Take a vending machine as an example, it could be modelled as a finite state machine. It has the following states: Waiting
+for Coins, Select Candy, Give Candy and given a set of inputs, it moves between those states. For example, inserting a coin moves the vending machine from Waiting for coins to Select Candy. [**Pages**](https://cloud.google.com/dialogflow/cx/docs/concept/page) are how we can model these states for a Dialogflow CX virtual agent.
+
+As an end user interacts with Dialogflow CX in a conversation, the conversation moves from page to page so at any given moment,
 exactly one page is the current page, the current page is considered active, and also the
 flow associated with that page is considered active.
 
-Every flow has a special start page. When a flow initially becomes active, the start
+For each [**Flow**](https://cloud.google.com/dialogflow/cx/docs/concept/flow), you define many pages, where your combined pages can handle a complete conversation on the topic(s) the flow is designed for. Every flow has a special start page. When a flow initially becomes active, the start
 page becomes the current page. For each conversational turn, the current page will
 either stay the same or transition to another page. This concept will allow you to create larger agents with many pages and multiple
-turn-taking turns.
+conversation turns.
 
-Pages contain **fulfillments** (static entry dialogues and/or webhooks), **parameters**, and **state
-handlers**. Conversation control happens through state handlers, which
+Pages contain **fulfillments** (static entry dialogues and/or webhooks), **parameters**, and **state handlers**. Conversation control happens through state handlers, which
 allows you to create various *transition routes* to transition to another Dialogflow CX
 page, including making it conditional (for branching of conversations).
-You can control a conversation through the following ways:
 
-* *Intent routes*: When an intent can be matched
-* *Condition routes*: When a condition should be checked
-* *Event handlers*: When a certain event can be handled
-* *Page transitions*: When a page transition occurs
+
+A conversation's state is controlled by handling tranisitions between pages with three different types of routes:
+* *Intent routes*: When an intent should be matched (e.g. changing page based on what an end user says)
+* *Condition routes*: When a condition should be checked (e.g. changing page based on certain parameters stored in the session)
+* *Event handlers*: When a certain fallback event should be handled (e.g. handling no input, no match, in order to disambiguate the end user to either an intent or condition route)
+
+The conversation utterances (i.e. the content or response back to the user) is defined by fulfillment, which can be either static or dynamic:
 * *Static fulfillment*: When a static fulfillment response is provided
 * *Dynamic fulfillment*: When a fulfillment webhook is called for dynamic responses
 
@@ -499,9 +522,8 @@ Let's click this together:
 
 ![Default Start Page Routes](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/routes-default-start2.png?raw=true)
 
-As you might have noticed, the Default Start Flow will kinda work like how an option menu works in a call center.
-However, in this virtual agent it's trained with Natural Language, the training phrases in intents. Therefore the conversation
-feels more natural and human-like.
+The Default Start Flow will work like an option menu works when calling a call center.
+However, in this virtual agent it is trained with Natural Language, with the training phrases in intents. Therefore the interaction is driven by conversation and not by DTMF options and is more natural and human-like.
 
 ![Default Start Page Routes](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/flows-visualization.png?raw=true)
 
@@ -581,9 +603,8 @@ Notice the complexity of this flow:
 ```
 
 > aside positive
-**Note:** This use case shows how powerful Dialogflow CX really is! Of course you could build retail agents with [Dialogflow ES](https://cloud.google.com/dialogflow/es/docs), but you can't reuse intents,
-and keeping context and parameters are limited, so you would likely end up, by manually coding back-end fulfillments, which require developers.
-In Dialogflow CX, once you get the hang of it, it's a matter of clicks, the conversational architect can configure flows with complexity.
+**Note:** This use case shows how powerful Dialogflow CX really is! Of course you could build retail agents with [Dialogflow ES](https://cloud.google.com/dialogflow/es/docs), but you can't reuse intents, and keeping context and parameters are limited, so you would need to address this by manually coding back-end fulfillments (and would require developers).
+In Dialogflow CX, the conversational architect can model these complex flows as a state machine and reuse design elements such as intents.
 
 Let's first start with connecting the pages.
 
@@ -667,7 +688,7 @@ Let's define some page parameters:
 
 `From which of these artists would you like to order merchandise?`
 
-4. Add a second dialogue option that provides rich suggestion chips. Click **Add dialogue option** and use this code:
+4. Add a second dialogue option that provides rich suggestion chips. Click **Add dialogue option** and use this code (in [JSON](https://en.wikipedia.org/wiki/JSON)):
 
 ```
 {
@@ -695,8 +716,8 @@ Let's define some page parameters:
 }
 ```
 
-It's even possible to give different fallback fulfillment prompts based on the amount of tries your end-user tried to answer these. You would do this with **parameters event handlers**.
-There are various events to choose from such as *Invalid Parameters*, *Utterances too long*, *No input*, *No input 1st try*, *2nd try*, or *No Match*.
+It is possible to handle different fallback fulfillment prompts based on the amount of tries your end-user tried to answer these. You would do this with **parameters event handlers**.
+There are various built-in event handlers to choose from such as *Invalid Parameters*, *Utterances too long*, *No input*, *No input 1st try*, *2nd try*, or *No Match*.
 The difference between no input and no match, is that with no input a user never provided an answer, where with no match, the user did provide an answer
 but Dialogflow CX could not intent match this with a page.
 
@@ -1678,7 +1699,7 @@ We are almost at the end of this lab. Let's configure the last flows together, a
 |-|-|-|
 | My Order Start | `redirect.my.order` | My Order |
 | My Order Start | `redirect.my.order.status` | My Order Status |
-| My Order Start | `redirect.my.order.canceled` | My Order Cancelation |
+| My Order Start | `redirect.my.order.canceled` | My Order Cancellation |
 | My Order Start | `redirect.end` | End Flow |
 | My Order Start | `redirect.home` | Flow: Default Start Flow |
 | Default Start Flow | `redirect.my.order.canceled` | Flow: My Order |
@@ -1794,14 +1815,14 @@ And:
 
 ### Default Negative intents (Fallback)
 
-When you create a virtual agent, a default negative intent is created for you. You can add training phrases to this intent that act as negative examples which will trigger **No-match event**.
+When you create a virtual agent, a default negative intent is created for you. You can add training phrases to this intent that act as negative examples that will trigger a **No-match event**.
 There may be cases where end-user input has a slight resemblance to training phrases in normal intents, but you do not want these inputs to match any normal intents.
 
 1. Try in the simulator: `I don't like Alice Googler`.
 
 You will see that the virtual agent answers with the *Product Overview* Page, to continue ordering *Alice Googler* merchandise.
 However, your end user does not like that artist.
-Let's use the Default Negative Intent for this1
+Let's use the Default Negative Intent for this.
 
 2. Go to **Manage > Intents** and select the **Default Negative Intent**.
 
