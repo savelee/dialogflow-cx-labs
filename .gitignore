@@ -7,7 +7,6 @@ temp
 build
 package-lock.json
 *.sketch
-*.png
 
 # misc
 /.sass-cache
