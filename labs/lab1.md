@@ -63,7 +63,11 @@ You can breakdown the workshop in the following 4 parts:
 * State Machine, this is the Dialogflow CX magic, and the most important part of this lab.
 * Finalizing the agent - Finalize to get a full working end-to-end chatbot.
 
->**Note:** Download the agent blob exports: [Lab 1 Intermediate Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-intermediate.blob) or [Lab 1 Final Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-complete.blob) to import/restore the agent, in case you want to skip the manual steps. To do this, go to [https://dialogflow.cloud.google.com/cx/projects](https://dialogflow.cloud.google.com/cx/projects), select your Google Cloud project, select or create an agent in *us-central1*. Click the options icon in the table (this is the icon with the 3 bullets) in the (view agents / locations overview). Click *Restore* > *Upload*, and select one of the blobs. Click *Restore*.
+>**Note:** Download the agent blob exports: [Lab 1 Intermediate Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-intermediate.blob) or [Lab 1 Final Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-complete.blob) to import/restore the agent, in case you want to skip the manual steps. To do this, go to [https://dialogflow.cloud.google.com/cx/projects](https://dialogflow.cloud.google.com/cx/projects), select your Google Cloud project, select or create an agent in *us-central1*. Click the options icon in the table (this is the icon with the 3 bullets) in the (view agents / locations overview). Click *Restore* > *Upload*, and select one of the blobs. Click *Restore*. See the below screenshots.
+
+![Restore an agent, first select: View Agents](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/restore-options0.png?raw=true)
+![Restore an agent, click: Restore](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/restore-options1.png?raw=true)
+![Restore an agent, select the blob](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/restore-options2.png?raw=true)
 
 
 ### What you'll need
