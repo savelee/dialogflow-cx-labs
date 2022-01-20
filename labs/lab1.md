@@ -13,15 +13,9 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 # Build a retail virtual agent with Dialogflow CX
 
-[Download & Import Intermediate CX Agent - Reusable Parts (Flows, Entities, Intents)](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-intermediate.blob)
-
-|
-
-[Download & Import Finalized CX Agent](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-complete.blob)
-
+[Download & Import Intermediate CX Agent - Reusable Parts (Flows, Entities, Intents)](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-intermediate.blob) | [Download & Import Finalized CX Agent](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-complete.blob)
 
 
 ## Before you begin
@@ -59,8 +53,7 @@ The final Dialogflow CX agent design will look like this:
 
 ![Final Result](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/dialogflow-interface.png?raw=true)
 
->
-**Note:** We will approach this lab as building a real world virtual agent! We will show you a conversation design (prototype/flow chart) of the dialogue tree. Typically conversational designers create these types of prototypes. It's based on data (conversation analytics, the most common questions that have been asked). We will also give you a UML diagram that shows the relation of the entities (such as Artists or Merchandise product types). Typically you would get this information from a database, as that will also be the place where you store the user input. You will start this lab by first creating the reusable parts. (Flows, Entities and Intents). Afterwards, you will configure the flows by creating Pages, Transitions,
+>**Note:** We will approach this lab as building a real world virtual agent! We will show you a conversation design (prototype/flow chart) of the dialogue tree. Typically conversational designers create these types of prototypes. It's based on data (conversation analytics, the most common questions that have been asked). We will also give you a UML diagram that shows the relation of the entities (such as Artists or Merchandise product types). Typically you would get this information from a database, as that will also be the place where you store the user input. You will start this lab by first creating the reusable parts. (Flows, Entities and Intents). Afterwards, you will configure the flows by creating Pages, Transitions,
 and Fulfillments. Enjoy!
 
 You can breakdown the workshop in the following 4 parts:
@@ -70,8 +63,7 @@ You can breakdown the workshop in the following 4 parts:
 * State Machine, this is the Dialogflow CX magic, and the most important part of this lab.
 * Finalizing the agent - Finalize to get a full working end-to-end chatbot.
 
->
-**Note:** Download the agent blob exports: [Lab 1 Intermediate Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-intermediate.blob) or [Lab 1 Final Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-complete.blob) to import/restore the agent, in case you want to skip the manual steps. To do this, go to [https://dialogflow.cloud.google.com/cx/projects](https://dialogflow.cloud.google.com/cx/projects), select your Google Cloud project, select or create an agent in *us-central1*. Click the options icon in the table (this is the icon with the 3 bullets) in the (view agents / locations overview). Click *Restore* > *Upload*, and select one of the blobs. Click *Restore*.
+>**Note:** Download the agent blob exports: [Lab 1 Intermediate Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-intermediate.blob) or [Lab 1 Final Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-complete.blob) to import/restore the agent, in case you want to skip the manual steps. To do this, go to [https://dialogflow.cloud.google.com/cx/projects](https://dialogflow.cloud.google.com/cx/projects), select your Google Cloud project, select or create an agent in *us-central1*. Click the options icon in the table (this is the icon with the 3 bullets) in the (view agents / locations overview). Click *Restore* > *Upload*, and select one of the blobs. Click *Restore*.
 
 
 ### What you'll need
@@ -80,8 +72,7 @@ You can breakdown the workshop in the following 4 parts:
 +   Access to Google Cloud.
 
 
->
-**Note:** Each new Dialogflow CX customer will receive a $600 credit for a free trial of Dialogflow CX. This credit is automatically activated upon using Dialogflow CX for the first time and expires after 12 months. 
+>**Note:** Each new Dialogflow CX customer will receive a $600 credit for a free trial of Dialogflow CX. This credit is automatically activated upon using Dialogflow CX for the first time and expires after 12 months. 
 This is a Dialogflow-specific extension of the Google Cloud free trial. For more information about pricing see the [pricing overview](https://cloud.google.com/dialogflow/pricing?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-).
 
 
@@ -94,7 +85,6 @@ Duration: 9:00
 Since Dialogflow CX runs in Google Cloud, you must **create a Google Cloud project**. A project organizes all your Google Cloud resources. It consists of a set of collaborators, enabled APIs (and other resources), monitoring tools, billing information, and authentication and access controls.
 
 <button>[Open Google Cloud Console](https://console.cloud.google.com/projectselector2/home/dashboard?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-)</button>
-
 When you create a new project, you will need to enter a **Project Name**. And you will have to link it to an existing Billing Account and Organization.
 
 A billing account is used to define who pays for a given set of resources, and it can be linked to one or more projects. Project usage is charged to the linked billing account. In most cases, you configure billing when you create a project. For more information, see the [Billing documentation](https://cloud.google.com/billing/docs?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-). Make sure that billing is enabled for your Cloud project.
@@ -106,7 +96,6 @@ A billing account is used to define who pays for a given set of resources, and i
 In order to make use of Dialogflow, you will have to enable the Dialogflow API for your project.
 
 1. <button>[Enable the Dialogflow API](https://console.cloud.google.com/flows/enableapi?apiid=dialogflow.googleapis.com?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-)</button>
-
 2. Select the project you want to enable the API for, and click **Continue**.
 
 3. Collapse the menu of APIs & Services and click on **Credentials**
@@ -124,7 +113,6 @@ In order to make use of Dialogflow, you will have to enable the Dialogflow API f
 To create a new Dialogflow CX agent, first open the Dialogflow CX Console:
 
 <button>[Dialogflow CX Console](https://dialogflow.cloud.google.com/cx/projects?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-)</button>
-
 1. Choose the previously created Google Cloud project.
 2. Click **Create agent**.
 
@@ -135,8 +123,7 @@ Complete the form for basic agent settings:
 * Select your preferred time zone.
 * Select **en - English** as default language
 
->
-**Note:** In Dialogflow CX you can create multiple agents per project. When you set up an agent in Dialogflow CX, you will have to tie it to a location explicitly.
+>**Note:** In Dialogflow CX you can create multiple agents per project. When you set up an agent in Dialogflow CX, you will have to tie it to a location explicitly.
 
 Click **Create**.
 
@@ -408,8 +395,7 @@ Use the following details:
 * Display name `redirect.artists.overview`
 * Description `Artists overview: The bands supported by the label`
 
->
-**Note:** As a best practice, we will use the following naming convention for pages & intents:
+>**Note:** As a best practice, we will use the following naming convention for pages & intents:
 all characters are lowercase, use dots (.) instead of spaces. Intents use the following prefixes:
 **redirect** for intents that use NLU to fetch a page, **confirm**/**decline** for intents that confirm or decline choices ('yes' or 'no' training phrases)
 and **supp** in case it's a supplemental question, which can come back at any moment in the flow.
@@ -436,8 +422,7 @@ Scroll down and create the following **training phrases**:
 
 4. Click **Save**.
 
->
-**Note:** For what is worth, it is also possible to create intents directly from a page, in the **Routes** section.
+>**Note:** For what is worth, it is also possible to create intents directly from a page, in the **Routes** section.
 
 5. Now let's continue and create all the other intents. Use your own imagination to come up with more training phrases.
 A best practice would be to have at least 10 training phrases per intent to cover the different ways a user might trigger thant intent. For the purpose of this lab, having less should be fine too.
@@ -506,8 +491,7 @@ The conversation utterances (i.e. the content or response back to the user) is d
 
 For our retail bot, we will create some **intent routes** and provide some *static entry fulfillment* responses, which will be presented to the user as soon as a page gets activated. Later, we will create **parameters** with **condition routes** to gather the information you will need to make an merchandise order.
 
->
-**Note:** In the previous steps you have created regular intents. Dialogflow CX also gives you the option to create [**Route Groups**](https://cloud.google.com/dialogflow/cx/docs/concept/handler#route-group). Route Groups makes sense for when you
+>**Note:** In the previous steps you have created regular intents. Dialogflow CX also gives you the option to create [**Route Groups**](https://cloud.google.com/dialogflow/cx/docs/concept/handler#route-group). Route Groups makes sense for when you
 are building a virtual agent that have many pages with a common set of intent, event or conditional routes. To make routes reusable, you can define route groups (see the **Manage** tab), a resource for the entire flow.
 You can attach the route group to a flow or page. The routes within these groups may be called when the page is active.
 
@@ -560,8 +544,7 @@ However, in this virtual agent it is trained with Natural Language, with the tra
 
 ![Default Start Page Routes](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/flows-visualization.png?raw=true)
 
->
-**Note:** You might have noticed the two Page Transition options: **End Session** and **End Flow**. End Session closes the full chat session (chat conversation or call), where End Flow, closes the flow and jumps back to the last active flow.
+>**Note:** You might have noticed the two Page Transition options: **End Session** and **End Flow**. End Session closes the full chat session (chat conversation or call), where End Flow, closes the flow and jumps back to the last active flow.
 This is an important concept in Dialoglfow CX. You will need to 'close' your flows once you want to jump elsewhere, else you might end up in a nested conversation.
 By default, Dialogflow CX will try to stick to a conversation flow until it reaches the end. If, while in conversation, you go to another flow it follows the pages until the end of the flow and then gets back to the last visited flow and goes on until it finishes that one too, and so on until the chat conversation was ended with "End Session". This allows you to build complex conversations with deviations.
 
@@ -641,8 +624,7 @@ Notice the complexity of this flow:
 "The longsleeve of The Goo Fighters size S costs $30. Shall I continue to order?"
 ```
 
->
-**Note:** This use case shows how powerful Dialogflow CX really is! Of course you could build retail agents with [Dialogflow ES](https://cloud.google.com/dialogflow/es/docs?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-), but you can't reuse intents, and keeping context and parameters are limited, so you would need to address this by manually coding back-end fulfillments (and would require developers).
+>**Note:** This use case shows how powerful Dialogflow CX really is! Of course you could build retail agents with [Dialogflow ES](https://cloud.google.com/dialogflow/es/docs?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-), but you can't reuse intents, and keeping context and parameters are limited, so you would need to address this by manually coding back-end fulfillments (and would require developers).
 In Dialogflow CX, the conversational architect can model these complex flows as a state machine and reuse design elements such as intents.
 
 Let's first start with connecting the pages.
@@ -1003,8 +985,7 @@ Now, that we know how you can create parameters and conditional routes, let's cr
 * Fulfillment: `Alright! $session.params.merch of $session.params.artist, let's go!`
 * Transition: Create new Page: `Product`
 
->
-**Note:** This time we fetch the parameters from the session instead of the page. That is because you could have provided those parameters on another page.
+>**Note:** This time we fetch the parameters from the session instead of the page. That is because you could have provided those parameters on another page.
 In our case, we mentioned the artist's name in the turn before.
 
 4. Create a route for when the user says "Shirts"
