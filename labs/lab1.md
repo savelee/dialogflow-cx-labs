@@ -16,16 +16,24 @@
 
 # Build a retail virtual agent with Dialogflow CX
 
-[Download & Import Finalized CX Agent](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1.blob)
+[Download & Import Intermediate CX Agent - Reusable Parts (Flows, Entities, Intents)](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-intermediate.blob)
+
+|
+
+[Download & Import Finalized CX Agent](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-complete.blob)
+
+
 
 ## Before you begin
 
-In this codelab, you'll learn how to build a retail chatbot with <a href="https://cloud.google.com/dialogflow"><strong>Dialogflow CX</strong></a>, a Conversational AI Platform (CAIP) for building conversational UIs.
+Duration: 1:00
+
+In this codelab, you'll learn how to build a retail chatbot with <a href="https://cloud.google.com/dialogflow?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-"><strong>Dialogflow CX</strong></a>, a Conversational AI Platform (CAIP) for building conversational UIs.
 Dialogflow CX can implement virtual agents, like: chatbots, voice bots, phone gateways and can support multiple channels in over 50 different languages.
 
 This codelab will guide you how to build a website chatbot for a retail. The fictional business we are building the chatbot for is called: <strong>G-Records</strong>.
 G-Records is a rock record label, based in California. The label has 4 rock bands signed; <strong>Alice Googler</strong>, <strong>G's N' Roses</strong>, <strong>The Goo Fighters</strong> and <strong>The Google Dolls</strong>.
-G-Records is selling band merchandise to all rock fans. 
+G-Records is selling band merchandise to all rock fans.
 
 At the end of this codelab, you can use the chatbot, to order shirts or music or you can ask about your order.
 
@@ -49,11 +57,21 @@ You will learn the benefits of Dialogflow CX compared to Dialogflow ES by doing!
 
 The final Dialogflow CX agent design will look like this:
 
-![Final Result](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/final-result.png?raw=true)
+![Final Result](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/dialogflow-interface.png?raw=true)
 
-> aside positive
+>
 **Note:** We will approach this lab as building a real world virtual agent! We will show you a conversation design (prototype/flow chart) of the dialogue tree. Typically conversational designers create these types of prototypes. It's based on data (conversation analytics, the most common questions that have been asked). We will also give you a UML diagram that shows the relation of the entities (such as Artists or Merchandise product types). Typically you would get this information from a database, as that will also be the place where you store the user input. You will start this lab by first creating the reusable parts. (Flows, Entities and Intents). Afterwards, you will configure the flows by creating Pages, Transitions,
 and Fulfillments. Enjoy!
+
+You can breakdown the workshop in the following 4 parts:
+
+* Prerequisites - Everything you need to set up a Dialogflow CX environment.
+* Reusable parts - All the parts that are reusable, such as intents, entities and flows.
+* State Machine, this is the Dialogflow CX magic, and the most important part of this lab.
+* Finalizing the agent - Finalize to get a full working end-to-end chatbot.
+
+>
+**Note:** Download the agent blob exports: [Lab 1 Intermediate Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-intermediate.blob) or [Lab 1 Final Export](https://github.com/savelee/dialogflow-cx-labs/blob/master/agents/lab1-complete.blob) to import/restore the agent, in case you want to skip the manual steps. To do this, go to [https://dialogflow.cloud.google.com/cx/projects](https://dialogflow.cloud.google.com/cx/projects), select your Google Cloud project, select or create an agent in *us-central1*. Click the options icon in the table (this is the icon with the 3 bullets) in the (view agents / locations overview). Click *Restore* > *Upload*, and select one of the blobs. Click *Restore*.
 
 
 ### What you'll need
@@ -62,24 +80,24 @@ and Fulfillments. Enjoy!
 +   Access to Google Cloud.
 
 
-> aside positive
+>
 **Note:** Each new Dialogflow CX customer will receive a $600 credit for a free trial of Dialogflow CX. This credit is automatically activated upon using Dialogflow CX for the first time and expires after 12 months. 
-This is a Dialogflow-specific extension of the Google Cloud free trial. For more information about pricing see the [pricing overview](https://cloud.google.com/dialogflow/pricing).
+This is a Dialogflow-specific extension of the Google Cloud free trial. For more information about pricing see the [pricing overview](https://cloud.google.com/dialogflow/pricing?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-).
 
 
 ## Environment Setup
 
-Duration: 10:00
+Duration: 9:00
 
 ### Create a Google Cloud project
 
 Since Dialogflow CX runs in Google Cloud, you must **create a Google Cloud project**. A project organizes all your Google Cloud resources. It consists of a set of collaborators, enabled APIs (and other resources), monitoring tools, billing information, and authentication and access controls.
 
-<button>[Google Cloud Console](https://console.cloud.google.com/projectselector2/home/dashboard)</button>
+<button>[Open Google Cloud Console](https://console.cloud.google.com/projectselector2/home/dashboard?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-)</button>
 
 When you create a new project, you will need to enter a **Project Name**. And you will have to link it to an existing Billing Account and Organization.
 
-A billing account is used to define who pays for a given set of resources, and it can be linked to one or more projects. Project usage is charged to the linked billing account. In most cases, you configure billing when you create a project. For more information, see the [Billing documentation](https://cloud.google.com/billing/docs). Make sure that billing is enabled for your Cloud project.
+A billing account is used to define who pays for a given set of resources, and it can be linked to one or more projects. Project usage is charged to the linked billing account. In most cases, you configure billing when you create a project. For more information, see the [Billing documentation](https://cloud.google.com/billing/docs?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-). Make sure that billing is enabled for your Cloud project.
 
 ![Create a new project](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/create-project.png?raw=true)
 
@@ -87,15 +105,15 @@ A billing account is used to define who pays for a given set of resources, and i
 
 In order to make use of Dialogflow, you will have to enable the Dialogflow API for your project.
 
-1. <button>[Enable the Dialogflow API](https://console.cloud.google.com/flows/enableapi?apiid=dialogflow.googleapis.com)</button>
+1. <button>[Enable the Dialogflow API](https://console.cloud.google.com/flows/enableapi?apiid=dialogflow.googleapis.com?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-)</button>
 
 2. Select the project you want to enable the API for, and click **Continue**.
 
-3. Click **Credentials**
+3. Collapse the menu of APIs & Services and click on **Credentials**
 
 4. Click **Application Data**
 
-5. Say **No, I am not using them* as you are not using Kubernetes Engine, App Engine or Cloud Functions for now.
+5. Say **No, I am not using them** as you are not using Kubernetes Engine, App Engine or Cloud Functions for now.
 
 6. Click **Done**
 
@@ -105,7 +123,7 @@ In order to make use of Dialogflow, you will have to enable the Dialogflow API f
 
 To create a new Dialogflow CX agent, first open the Dialogflow CX Console:
 
-<button>[Dialogflow CX Console](https://dialogflow.cloud.google.com/cx/projects)</button>
+<button>[Dialogflow CX Console](https://dialogflow.cloud.google.com/cx/projects?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-)</button>
 
 1. Choose the previously created Google Cloud project.
 2. Click **Create agent**.
@@ -117,7 +135,7 @@ Complete the form for basic agent settings:
 * Select your preferred time zone.
 * Select **en - English** as default language
 
-> aside positive
+>
 **Note:** In Dialogflow CX you can create multiple agents per project. When you set up an agent in Dialogflow CX, you will have to tie it to a location explicitly.
 
 Click **Create**.
@@ -128,14 +146,14 @@ Alright, we are all set. We finally can get started with modeling our virtual ag
 
 ## Flows
 
-Duration: 15:00
+Duration: 10:00
 
 Complex dialogs often involve multiple conversation topics. In the case of the chatbot we are building for G-Records, for selling band merchandise,
 we would have dialogs about the product catalog, payment, order status, and customer care questions. We could split these conversation topics into flows.
 
 ![Retail Flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/flows-start.png?raw=true)
 
-[Flows](https://cloud.google.com/dialogflow/cx/docs/concept/flow) allow teams to work on individual conversation paths. A good practice would be to simplify the flow, so it fits easily. on a screen
+[Flows](https://cloud.google.com/dialogflow/cx/docs/concept/flow?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-) allow teams to work on individual conversation paths. A good practice would be to simplify the flow, so it fits easily. on a screen
 and it's more modular.
 
 Flows are a new concept to Dialogflow CX. Dialogflow Essentials has the concept Mega Agents, that are somehow similar to Flows. However, you would
@@ -147,7 +165,7 @@ Let's go and create some flows.
 
 ### Creating Flows
 
-1. In [Dialogflow CX](https://dialogflow.cloud.google.com/cx/), click on the **+** icon > **Create flow**.
+1. In [Dialogflow CX](https://dialogflow.cloud.google.com/cx/?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-), click on the **+** icon > **Create flow**.
 2. Specify the name: `Catalog` and hit enter.
 
 ![Create a flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/create-flow.png?raw=true)
@@ -200,7 +218,7 @@ To streamline the conversation, we will also need some quick reply buttons / sug
 
 5. Use the below code snippet as a Custom payload, and hit **Save**.
 
-To read more about Custom payloads have a look into the [documentation](https://cloud.google.com/dialogflow/cx/docs/concept/integration/dialogflow-messenger#suggestion_chip_response_type).
+To read more about Custom payloads have a look into the [documentation](https://cloud.google.com/dialogflow/cx/docs/concept/integration/dialogflow-messenger#suggestion_chip_response_type?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-).
 
 ```
 {
@@ -252,11 +270,11 @@ Since we don't have a website yet, we will test the virtual agent directly in th
 
 For now, when you click on the suggestion chips, the virtual agent won't understand what you mean. This is because our virtual agent is not switching between states yet. We can do this in Dialogflow CX with **Pages**. Let's continue the lab, we will first create some **Entities** and **Intents**.
 
-## Entities
+## Entity Types
 
-Duration: 10:00
+Duration: 5:00
 
-[Entity types](https://cloud.google.com/dialogflow/cx/docs/concept/entity) are used to control how data from end-user input is extracted. Dialogflow CX entity types are very similar to Dialogflow ES entity types.
+[Entity types](https://cloud.google.com/dialogflow/cx/docs/concept/entity?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-) are used to control how data from end-user input is extracted. Dialogflow CX entity types are very similar to Dialogflow ES entity types.
 Dialogflow provides predefined system entities that can match many common types of data. For example, there are system entities for matching dates, times, colors, email addresses, and so on. 
 You can also create your own custom entities for matching custom data.
 
@@ -271,7 +289,7 @@ Let's create an *Artist* entity.
 
 1. Click **Manage > Entity Types**
 
-2. Click **Create New**
+2. Click **Create**
 
 * Display Name: `Artist`
 * Entities:
@@ -366,12 +384,11 @@ Your entity configuration should look similar to the following:
 
 Once, the custom entities are prepared, we can prepare the intents. Let's continue the lab.
 
-
 ## Intents
 
-Duration: 10:00
+Duration: 15:00
 
-An [Intent](https://cloud.google.com/dialogflow/cx/docs/concept/intent) categorizes an end user’s intention for one conversation turn. They have been dramatically simplified in Dialogflow CX, It’s no longer a building block for conversational control. Dialogflow
+An [Intent](https://cloud.google.com/dialogflow/cx/docs/concept/intent?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-) categorizes an end user’s intention for one conversation turn. They have been dramatically simplified in Dialogflow CX, It’s no longer a building block for conversational control. Dialogflow
 CX only uses intents to match what the users are saying. In Dialogflow ES, you had to tie everything to an intent (parameters, events, fulfillment, etc.). Intents in Dialogflow CX only contain
 training phrases and therefore are reusable. It no longer controls the conversation. So the process of creating intents will be straight forward:
 
@@ -391,10 +408,11 @@ Use the following details:
 * Display name `redirect.artists.overview`
 * Description `Artists overview: The bands supported by the label`
 
-> aside positive
-**Note:** As a best practice, we will use the following naming convention for intents:
-all characters are lowercase, use dots (.) instead of spaces, and use the following prefixes:
+>
+**Note:** As a best practice, we will use the following naming convention for pages & intents:
+all characters are lowercase, use dots (.) instead of spaces. Intents use the following prefixes:
 **redirect** for intents that use NLU to fetch a page, **confirm**/**decline** for intents that confirm or decline choices ('yes' or 'no' training phrases)
+and **supp** in case it's a supplemental question, which can come back at any moment in the flow.
 
 ![New Intent](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/new-intent.png?raw=true)
 
@@ -418,7 +436,7 @@ Scroll down and create the following **training phrases**:
 
 4. Click **Save**.
 
-> aside positive
+>
 **Note:** For what is worth, it is also possible to create intents directly from a page, in the **Routes** section.
 
 5. Now let's continue and create all the other intents. Use your own imagination to come up with more training phrases.
@@ -432,7 +450,7 @@ A couple of things to look for:
 | **Display name** | **Training phrases** |
 |-|-|
 | `redirect.product.overview` | `"Which products do you sell?", "What merchandise items do you have?", "What are you selling?", "What are the items?", "Which products?" "What merchandise?", "Please tell me what you have"` |
-| `confirm.artists.overview` | `"Yeah, let me buy merchandise", "Yes, I want to purchase something", "Yes, I would like to order merchandise from Alice Googler" *(Note: Alice Googler, should be recognized as an @Artist entity!)*, "Ok, let's buy stuff."` |
+| `confirm.artists.overview` | `"Yeah, let me buy merchandise", "Yes, I want to purchase something", "Yes, I would like to order merchandise from Alice Googler"` *(Note: Alice Googler, should be recognized as an @Artist entity!)*, `"Ok, let's buy stuff."` |
 | `redirect.price` | `"How much does a t-shirt cost?", "What's the price for the tour movie?", "The album is how much?", "I want to know the price of a longsleeve shirt", "What's the price difference?", "What does each product costs?", "What does it cost?", "What is the price?"` |
 | `redirect.product` | `"Tour movie", "I am interested in a t-shirt", "Can I buy a digital album?", "I want the CD", "I want to buy something", "Can I purchase a record?", "I want to buy a t-shirt size M of The Google Dolls", "Can I purchase the Alice Googler digital album?"` |
 | `redirect.product.of.artist` | `"Yeah, let's shop", "Give me merch of Alice Googler", "Shirts of The Google Dolls that would be nice.", "Yes", "I want The Goo Fighters stuff", "Yes, I want to order merchandise", "Yep, give me items of G's N' Roses", "Go for it", "Anything Alice Googler", "I am a G's N' Roses fan!", "Google Dolls", "Yes of The Google Dolls"` |
@@ -461,13 +479,13 @@ Duration: 30:00
 
 A Dialogflow CX conversation (a session) can be described and visualized as a [finite state
 machine](https://en.wikipedia.org/wiki/Finite-state_machine). Take a vending machine as an example, it could be modelled as a finite state machine. It has the following states: Waiting
-for Coins, Select Candy, Give Candy and given a set of inputs, it moves between those states. For example, inserting a coin moves the vending machine from Waiting for coins to Select Candy. [**Pages**](https://cloud.google.com/dialogflow/cx/docs/concept/page) are how we can model these states for a Dialogflow CX virtual agent.
+for Coins, Select Candy, Give Candy and given a set of inputs, it moves between those states. For example, inserting a coin moves the vending machine from Waiting for coins to Select Candy. [**Pages**](https://cloud.google.com/dialogflow/cx/docs/concept/page?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-) are how we can model these states for a Dialogflow CX virtual agent.
 
 As an end user interacts with Dialogflow CX in a conversation, the conversation moves from page to page so at any given moment,
 exactly one page is the current page, the current page is considered active, and also the
 flow associated with that page is considered active.
 
-For each [**Flow**](https://cloud.google.com/dialogflow/cx/docs/concept/flow), you define many pages, where your combined pages can handle a complete conversation on the topic(s) the flow is designed for. Every flow has a special start page. When a flow initially becomes active, the start
+For each [**Flow**](https://cloud.google.com/dialogflow/cx/docs/concept/flow?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-), you define many pages, where your combined pages can handle a complete conversation on the topic(s) the flow is designed for. Every flow has a special start page. When a flow initially becomes active, the start
 page becomes the current page. For each conversational turn, the current page will
 either stay the same or transition to another page. This concept will allow you to create larger agents with many pages and multiple
 conversation turns.
@@ -478,15 +496,21 @@ page, including making it conditional (for branching of conversations).
 
 
 A conversation's state is controlled by handling tranisitions between pages with three different types of routes:
-* *Intent routes*: When an intent should be matched (e.g. changing page based on what an end user says)
-* *Condition routes*: When a condition should be checked (e.g. changing page based on certain parameters stored in the session)
-* *Event handlers*: When a certain fallback event should be handled (e.g. handling no input, no match, in order to disambiguate the end user to either an intent or condition route)
+* *Intent routes*: When an intent should be matched (e.g. changing page based on what an end user says). (Blue lines in the visual diagram.)
+* *Condition routes*: When a condition should be checked (e.g. changing page based on certain parameters stored in the session) (Orange lines in the visual diagram.)
+* *Event handlers*: When a certain fallback event should be handled (e.g. handling no input, no match, in order to disambiguate the end user to either an intent or condition route) (Green lines in the visual diagram.)
 
 The conversation utterances (i.e. the content or response back to the user) is defined by fulfillment, which can be either static or dynamic:
 * *Static fulfillment*: When a static fulfillment response is provided
 * *Dynamic fulfillment*: When a fulfillment webhook is called for dynamic responses
 
 For our retail bot, we will create some **intent routes** and provide some *static entry fulfillment* responses, which will be presented to the user as soon as a page gets activated. Later, we will create **parameters** with **condition routes** to gather the information you will need to make an merchandise order.
+
+>
+**Note:** In the previous steps you have created regular intents. Dialogflow CX also gives you the option to create [**Route Groups**](https://cloud.google.com/dialogflow/cx/docs/concept/handler#route-group). Route Groups makes sense for when you
+are building a virtual agent that have many pages with a common set of intent, event or conditional routes. To make routes reusable, you can define route groups (see the **Manage** tab), a resource for the entire flow.
+You can attach the route group to a flow or page. The routes within these groups may be called when the page is active.
+
 
 ### Page Intent Routes
 
@@ -514,7 +538,7 @@ Let's click this together:
 
 | **Page (In Flow)** | **Routes > Intent** | **Routes > Transition To** |
 |-|-|-|
-| Start | Default Welcome Intent | - |
+| Start | `Default Welcome Intent` | - |
 | Start | `redirect.artists.overview` | Flow: Catalog |
 | Start | `redirect.product.overview` | Flow: Catalog |
 | Start | `redirect.shirts` | Flow: Catalog |
@@ -535,6 +559,12 @@ The Default Start Flow will work like an option menu works when calling a call c
 However, in this virtual agent it is trained with Natural Language, with the training phrases in intents. Therefore the interaction is driven by conversation and not by DTMF options and is more natural and human-like.
 
 ![Default Start Page Routes](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/flows-visualization.png?raw=true)
+
+>
+**Note:** You might have noticed the two Page Transition options: **End Session** and **End Flow**. End Session closes the full chat session (chat conversation or call), where End Flow, closes the flow and jumps back to the last active flow.
+This is an important concept in Dialoglfow CX. You will need to 'close' your flows once you want to jump elsewhere, else you might end up in a nested conversation.
+By default, Dialogflow CX will try to stick to a conversation flow until it reaches the end. If, while in conversation, you go to another flow it follows the pages until the end of the flow and then gets back to the last visited flow and goes on until it finishes that one too, and so on until the chat conversation was ended with "End Session". This allows you to build complex conversations with deviations.
+
 
 #### Creating the pages in the Catalog Flow
 
@@ -611,8 +641,8 @@ Notice the complexity of this flow:
 "The longsleeve of The Goo Fighters size S costs $30. Shall I continue to order?"
 ```
 
-> aside positive
-**Note:** This use case shows how powerful Dialogflow CX really is! Of course you could build retail agents with [Dialogflow ES](https://cloud.google.com/dialogflow/es/docs), but you can't reuse intents, and keeping context and parameters are limited, so you would need to address this by manually coding back-end fulfillments (and would require developers).
+>
+**Note:** This use case shows how powerful Dialogflow CX really is! Of course you could build retail agents with [Dialogflow ES](https://cloud.google.com/dialogflow/es/docs?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-), but you can't reuse intents, and keeping context and parameters are limited, so you would need to address this by manually coding back-end fulfillments (and would require developers).
 In Dialogflow CX, the conversational architect can model these complex flows as a state machine and reuse design elements such as intents.
 
 Let's first start with connecting the pages.
@@ -643,7 +673,7 @@ Take over this table. *Page*, is the Page you will select in the flow, *Routes >
 | Catalog Start | `redirect.shirts` | Shirts |
 | Catalog Start | `redirect.music` | Music |
 | Catalog Start | `redirect.end` | End Session |
-| Catalog Start | `redirect.home` | Flow: Default Start Flow |
+| Catalog Start | `redirect.home` | End Flow |
 | Artist Overview | `redirect.product.of.artist`|  Product Overview |
 
 Now let's continue and add more static fulfillments.
@@ -679,7 +709,7 @@ There are a few mechanisms in Dialogflow CX that can help you with this.
 For example, you could provide custom static fulfillment messages in the *Parameter* section. If the parameter is required, then these parameter fulfillments will be shown.
 These response messages will be added to the **response queue**.
 During an agent's turn, it is possible (and sometimes desirable) to call multiple fulfillments, each of which may generate a response message. Dialogflow maintains these responses in a **response queue**.
-To read more about the page life cycle, and the order these fulfillments will be added to the response queue, read the [Dialogflow CX Page Docs](https://cloud.google.com/dialogflow/cx/docs/concept/page).
+To read more about the page life cycle, and the order these fulfillments will be added to the response queue, read the [Dialogflow CX Page Docs](https://cloud.google.com/dialogflow/cx/docs/concept/page?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-).
 
 #### Creating the parameters on the Artist Overview page
 
@@ -750,11 +780,11 @@ but Dialogflow CX could not intent match this with a page.
 
 ### Page Condition Routes
 
-Duration: 10:00
+Duration: 15:00
 
 Parameters are very powerful in combination with **Page Conditional Routes**. When a condition evaluates to true, the associated page route will be called.
 A condition could be, *A parameter equals a specific value*, or *A parameter can't be missing*, or *A form that has been completed*, and many more.
-You can find more information on [Parameters](https://cloud.google.com/dialogflow/cx/docs/concept/parameter) and [Conditions](https://cloud.google.com/dialogflow/cx/docs/reference/condition) in the Dialogflow CX Documentation.
+You can find more information on [Parameters](https://cloud.google.com/dialogflow/cx/docs/concept/parameter?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-) and [Conditions](https://cloud.google.com/dialogflow/cx/docs/reference/condition?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-) in the Dialogflow CX Documentation.
 
 For our retail virtual agent, we will need to collect a sequence of parameters, hence we will need to create a condition, to check if a 'form' has been completed.
 A form is a list of parameters that should be collected from the end-user for the page. The virtual agent interacts with the end-user for multiple conversation turns, until it has collected all of the required form parameters, which are also known as page parameters.
@@ -973,7 +1003,7 @@ Now, that we know how you can create parameters and conditional routes, let's cr
 * Fulfillment: `Alright! $session.params.merch of $session.params.artist, let's go!`
 * Transition: Create new Page: `Product`
 
-> aside positive
+>
 **Note:** This time we fetch the parameters from the session instead of the page. That is because you could have provided those parameters on another page.
 In our case, we mentioned the artist's name in the turn before.
 
@@ -993,7 +1023,7 @@ In our case, we mentioned the artist's name in the turn before.
 * Transition: Create new Page: `Price`
 
 When you have set the above configuration, you will see a visualization that's almost similar to the picture below. Note that intent routes
-are blue in the diagram, and condition routes are orange.
+are blue in the diagram, and condition routes are orange. FWW, event handlers are green, and when multiple route types transition to a page, the line will be grey.
 
 ![The start of the Catalog flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/catalog-flow1.png?raw=true)
 
@@ -1548,6 +1578,8 @@ In the next part of the lab, we will make use of conditional fulfillments to giv
 
 ## Conditional Responses
 
+Duration: 10:00
+
 Some responses will return a different dialogue based on the input, The dialogues will branch off, we call this *conditional responses*.
 This can become interesting, when you are not making use of webhook fulfillments, where the conditional responses were determined on the back-end.
 An example could look like:
@@ -1569,7 +1601,7 @@ endif
 * Conditional responses always start with `if`
 * `elif` and `else` blocks are optional
 
-Dialogflow CX can also make use of built-in [system functions](https://cloud.google.com/dialogflow/cx/docs/reference/system-functions) to make use of.
+Dialogflow CX can also make use of built-in [system functions](https://cloud.google.com/dialogflow/cx/docs/reference/system-functions?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-) to make use of.
 For example to format a date or time, or to display the current time (`$sys.func.NOW()`)
 
 Let's finalize the *Catalog* flow, by fixing the *Confirmation* and *Price* Pages.
@@ -1622,7 +1654,7 @@ Next, create two intent routes:
 
 3. `confirm.proceed.order` transitions to: `Order Process` Flow.
 
-4. `decline.proceed.order` transitions to `Default Start Flow` Flow.
+4. `decline.proceed.order` transitions to `End Flow`
 
 When the user declines the order, and does not want to proceed the order process, we will have to transition back to the welcome page,
 but all the parameters have to be cleared. We can do this by specifically setting null to all the possible parameters.
@@ -1709,8 +1741,8 @@ We are almost at the end of this lab. Let's configure the last flows together, a
 | My Order Start | `redirect.my.order` | My Order |
 | My Order Start | `redirect.my.order.status` | My Order Status |
 | My Order Start | `redirect.my.order.canceled` | My Order Cancellation |
-| My Order Start | `redirect.end` | End Flow |
-| My Order Start | `redirect.home` | Flow: Default Start Flow |
+| My Order Start | `redirect.end` | End Session |
+| My Order Start | `redirect.home` | End Flow |
 | Default Start Flow | `redirect.my.order.canceled` | Flow: My Order |
 | Default Start Flow | `redirect.my.order.status` | Flow: My Order |
 
@@ -1889,7 +1921,7 @@ You could create these type of *No-match* and *No-input* events on Page level wh
 | **Page (In Flow)** | **Routes > Intent** | **Routes > Transition To** |
 |-|-|-|
 | Order Process Start | `redirect.end` | End Session |
-| Order Process Start | `redirect.home` | Flow: Default Start Flow |
+| Order Process Start | `redirect.home` | End Flow |
 | Order Process Start | `confirm.proceed.order` | New Page: Shipping Details |
 
 2. Let's create the following entry fulfillment for the **Shipping Details** Page:
@@ -1899,7 +1931,7 @@ You could create these type of *No-match* and *No-input* events on Page level wh
 3. Create the following parameters:
 
 These parameters will make use of built-in system entities.
-System entity support differs for each language. See the [docs](https://cloud.google.com/dialogflow/cx/docs/reference/system-entities) for more information.
+System entity support differs for each language. See the [docs](https://cloud.google.com/dialogflow/cx/docs/reference/system-entities?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-) for more information.
 
 | **Parameter Display name** | **Entity** | **Required?** | **Initial prompt fulfillment** | **No-match default** | **No-input default** |
 |-|-|-|-|-|-|
@@ -1968,7 +2000,7 @@ simulator collected while walking through your flows. This makes testing easier 
 It's even possible to create test cases, save and reuse those test cases. This makes a lot of sense, for when you maintain or edit your flows over time, and you want to be sure that none of your changes break your previous work.
 
 It is also possible to export and import previously made test cases, by storing the tests in Google Cloud Storage or local. Exporting a test will download a blob file.
-To learn more about the simulator and test cases check out the [Simulator / Test Cases Docs](https://cloud.google.com/dialogflow/cx/docs/concept/test-case).
+To learn more about the simulator and test cases check out the [Simulator / Test Cases Docs](https://cloud.google.com/dialogflow/cx/docs/concept/test-case?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-).
 
 Before creating some test cases, let's first finalize the rest of our virtual agent:
 
@@ -1981,7 +2013,7 @@ Before creating some test cases, let's first finalize the rest of our virtual ag
 | Customer Care Start | `redirect.shipping.info` | Shipping
 | Customer Care Start | `redirect.refund.info` | Refund
 | Customer Care Start | `redirect.swapping.info` | Swapping
-| Customer Care Start | `redirect.home` | Flow: Default Start Flow
+| Customer Care Start | `redirect.home` | End Flow
 | Customer Care Start | `redirect.end` | End Session
 
 ![Customer Care Flow](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/customarecare-flow.png?raw=true)
@@ -2217,8 +2249,7 @@ We addressed the following concepts:
 The retail virtual agent that you have built has quite some complexity.
 As you can see in the below image, there are various conversational paths that can lead to various ends.
 Certain conversational paths have been reused, and some could have been skipped.
-This use case shows how powerful Dialogflow CX really is! Of course you could build retail agents with [Dialogflow ES](https://cloud.google.com/dialogflow/es/docs), but you can't reuse intents,
-and keeping context and parameters are limited, so you would likely end up by manually coding back-end fulfillments, which require developers.
+This use case shows how powerful Dialogflow CX really is! Of course you could build retail agents with [Dialogflow ES](https://cloud.google.com/dialogflow/es/docs?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-), but you can't reuse intents, and keeping context and parameters are limited, so you would likely end up by manually coding back-end fulfillments, which require developers.
 In Dialogflow CX, once you get the hang of it, it's a matter of clicks, the conversational architect can configure flows with complexity.
 
 ![Final Result](https://github.com/savelee/dialogflow-cx-labs/blob/master/img/final-result.png?raw=true)
@@ -2227,8 +2258,8 @@ In Dialogflow CX, once you get the hang of it, it's a matter of clicks, the conv
 
 To learn more about Dialogflow CX have a look into the following blogs and documentation!
 
-* [Dialogflow CX Technical Guides](https://cloud.google.com/dialogflow/cx/docs/quick)
-* [Dialogflow CX API Reference](https://cloud.google.com/dialogflow/cx/docs/reference)
-* [Dialogflow CX Components built by the community](https://cloud.google.com/dialogflow/cx/docs/tutorials/samples)
+* [Dialogflow CX Technical Guides](https://cloud.google.com/dialogflow/cx/docs/quick?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-)
+* [Dialogflow CX API Reference](https://cloud.google.com/dialogflow/cx/docs/reference?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-)
+* [Dialogflow CX Components built by the community](https://cloud.google.com/dialogflow/cx/docs/tutorials/samples?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_lee_aiml_leedialogflowlabs_cx_&utm_content=-)
 * [Dialogflow blog by Conversational AI developer advocate Lee Boonstra](https://www.leeboonstra.dev)
 * [Dialogflow CX Prototype / Conversation Design tool built by Lee Boonstra](https://ccai-360.nw.r.appspot.com/)
